@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Light&Free: Puzzle 🧩</title>
+  <link rel="stylesheet" href="style.css">
+
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-K1M2MRJQBV"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('consent','default',{
+      'ad_storage':'denied',
+      'analytics_storage':'denied',
+      'personalization_storage':'denied',
+      'functionality_storage':'denied',
+      'security_storage':'granted'
+    });
+    gtag('js', new Date());
+    gtag('config', 'G-K1M2MRJQBV', {'send_page_view': false});
+  </script>
+
+</head>
+<body>
+  <h1>Light&Free: Puzzle 🧩</h1>
+
+  <!-- Selettore lingua -->
+  <div id="lang-selector">
+    <span id="lang-label">Seleziona lingua:</span>
+    <button id="lang-it">🇮🇹 IT</button>
+    <button id="lang-en">🇬🇧 EN</button>
+  </div>
+
+  <p class="subtitle"></p>
+
+  <!-- Stato gioco -->
+  <div id="status">
+    <span id="level-display">Lv: 1 | 🏁 Mosse: 0</span> | 
+    <span id="total-time-display">⏱️ 0s</span><br>
+    <button id="restart-btn"></button>
+    <button id="pause-btn"></button>
+  </div>
+
+  <!-- Griglia puzzle -->
+  <div id="game"></div>
+
+  <!-- Modale generica -->
+  <div id="modal" class="modal hidden">
+    <div class="modal-content">
+      <p id="modal-message"></p>
+      <div id="modal-buttons" class="modal-buttons"></div>
+    </div>
+  </div>
+
+  <!-- Stile banner cookie -->
+  <style>
+    #cookie-banner{position:fixed;left:12px;right:12px;bottom:12px;background:#111;color:#fff;padding:14px;border-radius:8px;box-shadow:0 6px 18px rgba(0,0,0,.25);z-index:99999;display:flex;gap:12px;align-items:center;justify-content:space-between;flex-wrap:wrap;font-family:system-ui,Arial,sans-serif}
+    #cookie-banner .msg{flex:1;min-width:220px}
+    #cookie-banner .actions{display:flex;gap:8px;flex-wrap:wrap}
+    #cookie-banner button,#cookie-banner a{padding:8px 12px;border-radius:6px;border:0;cursor:pointer;text-decoration:none;text-align:center}
+    #cookie-banner .accept{background:#16a34a;color:#fff}
+    #cookie-banner .reject{background:#ef4444;color:#fff}
+    #cookie-banner .more{background:transparent;color:#ddd;border:1px solid rgba(255,255,255,.2)}
+    @media(max-width:480px){#cookie-banner{padding:10px;font-size:14px}}
+  </style>
+
+  <!-- Banner cookie -->
+  <div id="cookie-banner" aria-live="polite" role="dialog" style="display:none;">
+    <div class="msg" id="cookie-msg">Questo sito utilizza cookie per statistiche anonime (Google Analytics).</div>
+    <div class="actions">
+      <a class="more" href="/cookie-policy.html" target="_blank">Cookie Policy</a>
+      <a class="more" href="/privacy-policy.html" target="_blank">Privacy Policy</a>
+      <button class="reject" id="cookie-reject">Rifiuta</button>
+      <button class="accept" id="cookie-accept">Accetta</button>
+    </div>
+  </div>
+
+  <!-- Script gestione cookie -->
+  <script>
+    (function(){
+      const texts={
+        it:{msg:'Questo sito utilizza cookie per statistiche anonime (Google Analytics).',accept:'Accetta',reject:'Rifiuta'},
+        en:{msg:'This site uses cookies for anonymous analytics (Google Analytics).',accept:'Accept',reject:'Reject'}
+      };
+      function detectLang(){
+        const htmlLang=document.documentElement.lang;
+        if(htmlLang&&htmlLang.startsWith('it'))return'it';
+        if(htmlLang&&htmlLang.startsWith('en'))return'en';
+        const nav=(navigator.language||navigator.userLanguage||'').toLowerCase();
+        if(nav.startsWith('it'))return'it';
+        if(nav.startsWith('en'))return'en';
+        return'it';
+      }
+      let lang=detectLang();
+      const btnIt=document.getElementById('lang-it'),btnEn=document.getElementById('lang-en');
+      if(btnIt)btnIt.addEventListener('click',()=>setLang('it'));
+      if(btnEn)btnEn.addEventListener('click',()=>setLang('en'));
+      function setLang(l){
+        lang=l;
+        const t=texts[lang]||texts.it;
+        document.getElementById('cookie-msg').textContent=t.msg;
+        document.getElementById('cookie-accept').textContent=t.accept;
+        document.getElementById('cookie-reject').textContent=t.reject;
+      }
+      const key='cookie_consent_v1',saved=localStorage.getItem(key);
+      function applySavedConsent(s){
+        if(!window.gtag)return;
+        if(s==='granted'){
+          gtag('consent','update',{'ad_storage':'granted','analytics_storage':'granted'});
+          gtag('event','page_view',{send_to:'G-K1M2MRJQBV'});
+        }else if(s==='denied'){
+          gtag('consent','update',{'ad_storage':'denied','analytics_storage':'denied'});
+        }
+      }
+      if(saved){applySavedConsent(saved);return}
+      document.getElementById('cookie-banner').style.display='flex';
+      setLang(lang);
+      document.getElementById('cookie-accept').addEventListener('click',function(){
+        localStorage.setItem(key,'granted');
+        if(window.gtag){
+          gtag('consent','update',{'ad_storage':'granted','analytics_storage':'granted'});
+          gtag('event','page_view',{send_to:'G-K1M2MRJQBV'});
+        }
+        document.getElementById('cookie-banner').style.display='none';
+      });
+      document.getElementById('cookie-reject').addEventListener('click',function(){
+        localStorage.setItem(key,'denied');
+        if(window.gtag){
+          gtag('consent','update',{'ad_storage':'denied','analytics_storage':'denied'});
+        }
+        document.getElementById('cookie-banner').style.display='none';
+      });
+    })();
+  </script>
+
+  <script src="script.js"></script>
+</body>
+</html>
