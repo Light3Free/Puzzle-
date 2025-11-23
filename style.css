@@ -1,0 +1,176 @@
+body {
+  font-family: Arial, sans-serif;
+  text-align: center;
+  margin: 20px;
+  background: #f7f7f7;
+}
+
+h1 {
+  margin-top: 20px;
+}
+
+.subtitle {
+  font-size: 1.2rem;
+  font-weight: bold;
+  color: #333;
+  margin: 12px 0;
+}
+
+#game {
+  max-width: 500px;
+  margin: 20px auto;
+  display: grid;
+  grid-gap: 10px;
+  justify-content: center;
+}
+
+.tile {
+  width: 80px;
+  height: 80px;
+  border-radius: 10px;
+  box-shadow: 0 0 5px rgba(0,0,0,0.2);
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  user-select: none;
+  position: relative;
+  background: #fff;
+}
+
+/* Logo grande sotto al contenuto */
+.tile::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image: url('https://raw.githubusercontent.com/Light3Free/lightfree-puzzle/main/ChatGPT-Image-5-lug-2025_-15_30_12.svg');
+  background-size: 125%;
+  background-position: center;
+  background-repeat: no-repeat;
+  opacity: 0.18;
+  pointer-events: none;
+}
+
+/* Emoji + numero */
+.tile span,
+.tile .tile-label {
+  position: relative;
+  z-index: 2;
+  font-size: 28px;
+  font-weight: bold;
+}
+
+/* Tessera vuota */
+.tile.empty {
+  background: transparent !important;
+}
+
+.tile.empty::before {
+  display: none !important;
+}
+
+/* --- status & pulsanti --- */
+#status {
+  margin-bottom: 10px;
+  font-weight: bold;
+  font-size: 16px;
+}
+
+button {
+  margin: 5px;
+  padding: 8px 15px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+#pause-btn,
+#restart-btn {
+  background: #f57c00;
+  color: white;
+}
+
+/* --- modale --- */
+.modal {
+  position: fixed;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  background: rgba(0,0,0,0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 100;
+}
+
+.modal.hidden {
+  display: none;
+}
+
+.modal-content {
+  background: white;
+  padding: 20px 30px;
+  border-radius: 10px;
+  max-width: 320px;
+  text-align: center;
+  box-shadow: 0 0 10px rgba(0,0,0,0.3);
+}
+
+.modal-buttons button {
+  margin: 5px;
+  padding: 8px 15px;
+  border-radius: 6px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+/* Pulsanti difficoltà */
+.btn-easy, .btn-medium, .btn-hard {
+  background: #f8f8f8;
+  border: 1px solid #ccc;
+  color: inherit;
+  font-size: 0.95rem;
+  min-width: 80px;
+}
+
+.btn-easy { color: #16a34a; }
+.btn-medium { color: #f57c00; }
+.btn-hard { color: #e11d48; }
+
+.btn-easy:hover,
+.btn-medium:hover,
+.btn-hard:hover {
+  background: #eaeaea;
+}
+
+/* Pulsanti modale */
+.btn-green { background: #16a34a; color: white; }
+.btn-blue { background: #3b82f6; color: white; }
+.btn-red { background: #e11d48; color: white; }
+.btn-gameroom { background: #ffcc33; color: #333; }
+
+/* Lingua */
+#lang-selector button {
+  border: 1px solid #333;
+  border-radius: 5px;
+  background: #ddd;
+  padding: 2px 6px;
+  font-size: 0.8rem;
+  font-weight: bold;
+  margin: 0 3px;
+  cursor: pointer;
+}
+
+/* Modale finale */
+.final-buttons button {
+  display: block;
+  width: 100%;
+  max-width: 220px;
+  margin: 6px auto;
+  padding: 8px 15px;
+  font-size: 0.9rem;
+}
+
+.final-buttons {
+  margin-bottom: 8px;
+}
